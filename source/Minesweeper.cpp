@@ -2,25 +2,27 @@
 
 Minesweeper::Minesweeper()
 {
-    socketInitializeDefault();
-    nxlinkStdio();
-
     InitSDL();
-    input = new Input();
-    Button* button = new Button(100, 100, 100, 100);
-    button->SetColor(100, 100, 100);
+    InitGame();
 
     while (true)
     {
+        if (_input->Scan())
+        {
+            _board->HandleClick(_input->GetPointPosition(0));
+        }
+        
         //Clear screen
-        SDL_RenderClear(renderer);
+        SDL_RenderClear(_renderer);
 
         //Render entity to screen
-        button->Draw(renderer);
+        _board->Draw(_renderer);
+
+        SDL_SetRenderDrawColor(_renderer, 255, 255, 255, 255);
 
         //Draw screen
-        SDL_RenderPresent(renderer);
-        
+        SDL_RenderPresent(_renderer);
+
         //Pause
         SDL_Delay(16);
     }
@@ -30,33 +32,49 @@ Minesweeper::Minesweeper()
     return;
 }
 
+void Minesweeper::InitGame()
+{
+    Globals::CellSize = 50;
+    Globals::BoardWidth = 24;
+    Globals::BoardHeight = 13;
+
+    printf("Init input\n");
+    _input = new Input();
+
+    printf("Init board\n");
+    _board = new Board(1280, 720);
+}
+
 void Minesweeper::InitSDL()
 {
     printf("Initialize SDL");
-    if (SDL_Init(SDL_INIT_VIDEO) < 0)
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK) < 0)
     {
         printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
         return;
     }
 
-    printf("Create window");
-    window = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1280, 720, SDL_WINDOW_SHOWN);
-    if (window == NULL)
+    printf("Test!\n");
+    
+    atexit(SDL_Quit);
+    SDL_CreateWindowAndRenderer(1280, 720, 0, &_window, &_renderer);
+
+    if (_window == NULL)
     {
         printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
         return;
     }
 
-    printf("Get window surface");
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+    SDL_SetRenderDrawColor(_renderer, 255, 255, 255, 255);
+    SDL_RenderClear(_renderer);
+    SDL_RenderPresent(_renderer);
 }
 
 void Minesweeper::DeinitSDL()
 {
     printf("Destroy window");
-    SDL_DestroyWindow(window);
+    SDL_DestroyWindow(_window);
 
     printf("Quit SDL subsystems");
-    //SDL_Quit();
+    SDL_Quit();
 }

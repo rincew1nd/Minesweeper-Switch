@@ -1,14 +1,17 @@
+#pragma once
 #include <switch.h>
 #include <SDL2/SDL.h>
 
-class Button
+class DrawableObject
 {
     public:
-        Button(int, int, int, int);
+        DrawableObject(int, int, int, int);
         void SetColor(int, int, int, int);
         void SetColor(int, int, int);
         void Draw(SDL_Renderer*);
+        int GetX();
+        int GetY();
     private:
-        SDL_Rect *rect;
-        SDL_Color *color;
+        SDL_Rect *_rect;
+        SDL_Color *_color;
 };

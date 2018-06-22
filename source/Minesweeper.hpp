@@ -2,8 +2,9 @@
 #include <switch.h>
 #include <SDL2/SDL.h>
 
+#include "Defaults.hpp"
 #include "Input.hpp"
-#include "Button.hpp"
+#include "Board.hpp"
 
 class Minesweeper
 {
@@ -12,9 +13,12 @@ class Minesweeper
 
     private:
         void InitSDL();
+        void InitGame();
         void DeinitSDL();
         
-        SDL_Window *window;
-        SDL_Renderer *renderer;
-        Input *input;
+        SDL_Window *_window;
+        SDL_Renderer *_renderer;
+
+        Input* _input;
+        Board* _board;
 };
