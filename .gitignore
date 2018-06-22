@@ -1,0 +1,13 @@
+build
+/
+.vscode
+/
+/*.pfs0
+
+/*.nso
+
+/*.nro
+
+/*.nacp
+
+/*.elf
