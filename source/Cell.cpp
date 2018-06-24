@@ -1,18 +1,23 @@
 #include "Cell.hpp"
 #include "Defaults.hpp"
 
-Cell::Cell(int posX, int posY, int dX, int dY)
+Cell::Cell(int posX, int posY, int dX, int dY, Resources* res)
     : DrawableObject(posX * Globals::CellSize + dX, posY * Globals::CellSize + dY, Globals::CellSize, Globals::CellSize)
 {
+    posi = posX;
+    posj = posY;
+    
+    NearMinesCount = 0;
     _state = Closed;
     SetColor(0, 0, 0);
+    _closedTexture = res->GetTexture(Closed, 0);
+    _flaggedTexture = res->GetTexture(Flagged, 0);
+    SetTexture(_closedTexture);
 }
 
 void Cell::AddNearCell(Cell* cell)
 {
-    for (int i = 0; i < 9; i++)
-        if (_nearCells[i] == NULL)
-            _nearCells[i] = cell;
+    _nearCells.push_back(cell);
 }
 
 CellState Cell::GetState()
@@ -20,45 +25,47 @@ CellState Cell::GetState()
     return _state;
 }
 
-bool Cell::Open()
+bool Cell::SetState(CellState state)
 {
-    if (_state != Opened)
-    {
-        _state = Opened;
-        if (NearMinesCount == 9)
-            SetColor(255, 0, 0);
-            return false;
-        if (_state != Flagged)
-            if (NearMinesCount == 0)
-                for (int i = 0; i < 9; i++)
-                {
-                    if (_nearCells[i] == NULL)
-                        break;
-                    _nearCells[i]->Open();
-                }
-    }
-    SetColor(0, 255, 0);
-    return true;
-}
-
-void Cell::FlagCell()
-{
-    switch (_state)
+    switch (state)
     {
         case Closed:
-            _state = Flagged;
-            SetColor(0, 0, 255);
-            break;
-        case Flagged:
             _state = Closed;
-            SetColor(0, 0, 0);
-            break;
+            SetTexture(_closedTexture);
+            return true;
+        case Opened:
+            if (_state != Opened && _state != Flagged)
+            {
+                SetTexture(_openedTexture);
+                if (NearMinesCount == 9)
+                    return false;
+                if (NearMinesCount == 0)
+                    for (auto cell = _nearCells.begin(); cell != _nearCells.end(); ++cell)
+                        cell->SetState(Opened);
+            }
+            return true;
+        case Flagged:
+            switch (_state)
+            {
+                case Closed:
+                    _state = Flagged;
+                    SetTexture(_flaggedTexture);
+                    break;
+                case Flagged:
+                    _state = Closed;
+                    SetTexture(_closedTexture);
+                    break;
+                default:
+                    break;
+            }
+            return true;
         default:
-            break;
+            printf("Something strange happend in Cell::SetState %d", state);
+            return false;
     }
 }
 
-void Cell::Close()
+void Cell::SetMineTexture(SDL_Texture* texture)
 {
-    _state = Closed;
+    _openedTexture = texture;
 }

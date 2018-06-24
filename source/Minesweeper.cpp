@@ -5,6 +5,12 @@ Minesweeper::Minesweeper()
     InitSDL();
     InitGame();
 
+    SDL_Rect rect;
+    rect.h = 50;
+    rect.w = 50;
+    rect.x = 0;
+    rect.y = 0;
+
     while (true)
     {
         if (_input->Scan())
@@ -19,6 +25,8 @@ Minesweeper::Minesweeper()
         _board->Draw(_renderer);
 
         SDL_SetRenderDrawColor(_renderer, 255, 255, 255, 255);
+
+        //SDL_RenderCopy(_renderer, _resources->TestTexture, NULL, &rect);
 
         //Draw screen
         SDL_RenderPresent(_renderer);
@@ -41,8 +49,18 @@ void Minesweeper::InitGame()
     printf("Init input\n");
     _input = new Input();
 
+    printf("Init ROMFS\n");
+    Result rc = romfsInit();
+    if (R_FAILED(rc))
+        printf("ERROR: romfsInit: %08X\n", rc);
+    else
+    {
+        _resources = new Resources();
+        _resources->LoadROMFS(_renderer);
+    }
+
     printf("Init board\n");
-    _board = new Board(1280, 720);
+    _board = new Board(1280, 720, _resources);
 }
 
 void Minesweeper::InitSDL()
@@ -53,8 +71,6 @@ void Minesweeper::InitSDL()
         printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
         return;
     }
-
-    printf("Test!\n");
     
     atexit(SDL_Quit);
     SDL_CreateWindowAndRenderer(1280, 720, 0, &_window, &_renderer);

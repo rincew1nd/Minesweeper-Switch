@@ -7,12 +7,13 @@
 #include "Cell.hpp"
 
 #include "Defaults.hpp"
+#include "Resources.hpp"
 
 class Board
 {
     public:
-        Board(int, int);
-        void GenerateBoard();
+        Board(int, int, Resources*);
+        void GenerateBoard(Resources*);
         Cell* GetCell(int, int);
         bool IsAllOpened();
         bool IsOnBoard(int, int);

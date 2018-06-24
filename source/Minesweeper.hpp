@@ -21,4 +21,5 @@ class Minesweeper
 
         Input* _input;
         Board* _board;
+        Resources* _resources;
 };
