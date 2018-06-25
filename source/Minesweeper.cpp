@@ -4,34 +4,6 @@ Minesweeper::Minesweeper()
 {
     InitSDL();
     InitGame();
-
-    while (true)
-    {
-        if (_input->Scan())
-        {
-            _board->HandleClick(_input->GetPointPosition(0));
-        }
-        
-        //Clear screen
-        SDL_RenderClear(_renderer);
-
-        //Render entity to screen
-        _board->Draw(_renderer);
-
-        SDL_SetRenderDrawColor(_renderer, 255, 255, 255, 255);
-
-        //SDL_RenderCopy(_renderer, _resources->TestTexture, NULL, &rect);
-
-        //Draw screen
-        SDL_RenderPresent(_renderer);
-
-        //Pause
-        SDL_Delay(16);
-    }
-
-    DeinitSDL();
-
-    return;
 }
 
 void Minesweeper::InitGame()
@@ -39,6 +11,7 @@ void Minesweeper::InitGame()
     Globals::CellSize = 50;
     Globals::BoardWidth = 24;
     Globals::BoardHeight = 13;
+    Globals::IsFlag = false;
 
     printf("Init input\n");
     _input = new Input();
@@ -78,6 +51,33 @@ void Minesweeper::InitSDL()
     SDL_SetRenderDrawColor(_renderer, 255, 255, 255, 255);
     SDL_RenderClear(_renderer);
     SDL_RenderPresent(_renderer);
+}
+
+void Minesweeper::Start()
+{
+    while (true)
+    {
+        if (_input->Scan())
+        {
+            _board->HandleClick(_input->GetPointPosition(0));
+        }
+
+        //Clear screen
+        SDL_RenderClear(_renderer);
+
+        //Render entity to screen
+        _board->Draw(_renderer);
+
+        SDL_SetRenderDrawColor(_renderer, 255, 255, 255, 255);
+
+        //Draw screen
+        SDL_RenderPresent(_renderer);
+
+        //Pause
+        SDL_Delay(16);
+    }
+
+    DeinitSDL();
 }
 
 void Minesweeper::DeinitSDL()

@@ -15,6 +15,7 @@ class Cell : public DrawableObject
         bool SetState(CellState);
         void SetMineTexture(SDL_Texture*);
         int NearMinesCount;
+        void Reset();
 
         int posi;
         int posj;

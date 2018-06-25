@@ -36,6 +36,7 @@ bool Cell::SetState(CellState state)
         case Opened:
             if (_state != Opened && _state != Flagged)
             {
+                _state = Opened;
                 SetTexture(_openedTexture);
                 if (NearMinesCount == 9)
                     return false;
@@ -69,4 +70,11 @@ bool Cell::SetState(CellState state)
 void Cell::SetMineTexture(SDL_Texture* texture)
 {
     _openedTexture = texture;
+}
+
+void Cell::Reset()
+{
+    NearMinesCount = 0;
+    _state = Closed;
+    _nearCells.clear();
 }

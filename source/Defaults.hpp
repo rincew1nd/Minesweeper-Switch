@@ -13,6 +13,8 @@ class Globals
         static int CellSize;
         static int BoardWidth;
         static int BoardHeight;
+
+        static bool IsFlag;
     private:
         Globals() {}
 };

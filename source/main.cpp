@@ -8,7 +8,8 @@ int main(int argc, char *argv[])
 
     printf("Minesweeper start!\n");
 
-    Minesweeper *game = new Minesweeper();
+    Minesweeper* game = new Minesweeper();
+    game->Start();
 
     printf("Minesweeper end!\n");
     

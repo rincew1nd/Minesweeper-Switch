@@ -1,5 +1,6 @@
 #include "Board.hpp"
 #include <ctime>
+#include <string>
 
 Board::Board(int w, int h, Resources* resources)
 {
@@ -7,17 +8,26 @@ Board::Board(int w, int h, Resources* resources)
     GridLeft = 40;
     GridTop = 10;
 
+    _resources = resources;
+
+    printf("Init buttons\n");
+    InitButtons();
+
     printf("Fill array of cells\n");
     for (int y = 0; y < Globals::BoardHeight; y++)
         for (int x = 0; x < Globals::BoardWidth; x++)
-            _cells.push_back(new Cell(x, y, GridLeft, GridTop, resources));
+            _cells.push_back(new Cell(x, y, GridLeft, GridTop, _resources));
 
     printf("Generate board\n");
-    GenerateBoard(resources);
+    GenerateBoard();
 }
 
-void Board::GenerateBoard(Resources* resources)
+void Board::GenerateBoard()
 {
+    printf("Clear near cell count\n");
+    for (int i = 0; i < Globals::BoardWidth * Globals::BoardHeight; i++)
+        _cells[i]->Reset();
+
     printf("Random mines\n");
     srand(time(0));
     for (int mineCount = 0; mineCount <= Globals::BoardHeight * Globals::BoardWidth * 0.3; mineCount++)
@@ -49,7 +59,7 @@ void Board::GenerateBoard(Resources* resources)
     
     printf("Set textures\n");
     for (int i = 0; i < Globals::BoardWidth * Globals::BoardHeight; i++)
-        _cells[i]->SetMineTexture(resources->GetTexture(Opened, _cells[i]->NearMinesCount));
+        _cells[i]->SetMineTexture(_resources->GetTexture(Opened, _cells[i]->NearMinesCount));
 
     printf("Done!\n");
 }
@@ -91,6 +101,8 @@ void Board::Draw(SDL_Renderer* renderer)
 {
     for (int i = 0; i < Globals::BoardWidth * Globals::BoardHeight; i++)
         _cells[i]->Draw(renderer);
+    for (unsigned long i = 0; i < _buttons.size(); i++)
+        _buttons[i]->Draw(renderer);
 }
 
 void Board::HandleClick(touchPosition* point)
@@ -101,5 +113,32 @@ void Board::HandleClick(touchPosition* point)
     y = y / Globals::CellSize;
 
     if (IsOnBoard(x, y))
-        GetCell(x, y)->SetState(Opened);
+        GetCell(x, y)->SetState(Globals::IsFlag ? Flagged : Opened);
+
+    for (int i = 0; i < _buttons.size(); i++)
+        if (point->px >= _buttons[i]->GetRect()->x && point->px <= _buttons[i]->GetRect()->x + _buttons[i]->GetRect()->w &&
+            point->py >= _buttons[i]->GetRect()->y && point->py <= _buttons[i]->GetRect()->y + _buttons[i]->GetRect()->h &&
+            _buttons[i]->IsVisible())
+            if (_buttons[i]->Name == "restart")
+                GenerateBoard();
+            else if (_buttons[i]->Name == "restart")
+                Globals::IsFlag = true;
+            else if (_buttons[i]->Name == "restart")
+                Globals::IsFlag = false;
+}
+
+void Board::InitButtons()
+{
+    Button* button = new Button(580, 665, 50, 50, "restart");
+    button->SetTexture(_resources->GetTexture(button->Name));
+    _buttons.push_back(button);
+
+    button = new Button(650, 665, 50, 50, "flagOnButton");
+    button->SetTexture(_resources->GetTexture(button->Name));
+    _buttons.push_back(button);
+
+    button = new Button(650, 665, 50, 50, "flagOffButton");
+    button->SetTexture(_resources->GetTexture(button->Name));
+    button->SetVisible(false);
+    _buttons.push_back(button);
 }

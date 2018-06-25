@@ -9,11 +9,14 @@ class DrawableObject
         void SetColor(int, int, int, int);
         void SetColor(int, int, int);
         void Draw(SDL_Renderer*);
-        int GetX();
-        int GetY();
+        SDL_Rect* GetRect();
         void SetTexture(SDL_Texture*);
-    private:
+        void SetVisible(bool);
+        bool IsVisible();
+
+      private:
         SDL_Rect* _rect;
         SDL_Color* _color;
         SDL_Texture* _texture;
+        bool _isVisible;
 };

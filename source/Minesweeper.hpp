@@ -10,6 +10,7 @@ class Minesweeper
 {
     public:
         Minesweeper();
+        void Start();
 
     private:
         void InitSDL();
