@@ -5,12 +5,6 @@ Minesweeper::Minesweeper()
     InitSDL();
     InitGame();
 
-    SDL_Rect rect;
-    rect.h = 50;
-    rect.w = 50;
-    rect.x = 0;
-    rect.y = 0;
-
     while (true)
     {
         if (_input->Scan())

@@ -1,4 +1,5 @@
 #include "Board.hpp"
+#include <ctime>
 
 Board::Board(int w, int h, Resources* resources)
 {
@@ -18,7 +19,7 @@ Board::Board(int w, int h, Resources* resources)
 void Board::GenerateBoard(Resources* resources)
 {
     printf("Random mines\n");
-    srand(2);
+    srand(time(0));
     for (int mineCount = 0; mineCount <= Globals::BoardHeight * Globals::BoardWidth * 0.3; mineCount++)
     {
         while(true)

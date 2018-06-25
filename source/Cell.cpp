@@ -40,8 +40,9 @@ bool Cell::SetState(CellState state)
                 if (NearMinesCount == 9)
                     return false;
                 if (NearMinesCount == 0)
-                    for (auto cell = _nearCells.begin(); cell != _nearCells.end(); ++cell)
-                        cell->SetState(Opened);
+                    for (unsigned long i = 0; i < _nearCells.size(); i++)
+                        if (_nearCells[i]->GetState() == Closed)
+                            _nearCells[i]->SetState(Opened);
             }
             return true;
         case Flagged:
