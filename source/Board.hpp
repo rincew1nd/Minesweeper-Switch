@@ -15,7 +15,6 @@ class Board
     public:
         Board(int, int, Resources*);
         void InitButtons();
-        void GenerateBoard();
         Cell* GetCell(int, int);
         bool IsAllOpened();
         bool IsOnBoard(int, int);
@@ -25,6 +24,8 @@ class Board
         void HandleClick(touchPosition*);
 
       private:
+        void GenerateBoard();
+        
         Resources *_resources;
         int GridLeft;
         int GridTop;

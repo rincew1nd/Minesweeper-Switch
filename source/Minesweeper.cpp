@@ -8,11 +8,6 @@ Minesweeper::Minesweeper()
 
 void Minesweeper::InitGame()
 {
-    Globals::CellSize = 50;
-    Globals::BoardWidth = 24;
-    Globals::BoardHeight = 13;
-    Globals::IsFlag = false;
-
     printf("Init input\n");
     _input = new Input();
 
@@ -48,18 +43,22 @@ void Minesweeper::InitSDL()
         return;
     }
 
-    SDL_SetRenderDrawColor(_renderer, 255, 255, 255, 255);
+    SDL_SetRenderDrawColor(_renderer, 208, 176, 48, 255);
     SDL_RenderClear(_renderer);
     SDL_RenderPresent(_renderer);
 }
 
 void Minesweeper::Start()
 {
-    while (true)
+    while (appletMainLoop())
     {
         if (_input->Scan())
         {
             _board->HandleClick(_input->GetPointPosition(0));
+            hidScanInput();
+            u64 kDown = hidKeysDown(CONTROLLER_P1_AUTO);
+            if (kDown) printf("test123\n");
+            if (kDown & KEY_PLUS) break;
         }
 
         //Clear screen
@@ -68,7 +67,7 @@ void Minesweeper::Start()
         //Render entity to screen
         _board->Draw(_renderer);
 
-        SDL_SetRenderDrawColor(_renderer, 255, 255, 255, 255);
+        SDL_SetRenderDrawColor(_renderer, 208, 176, 48, 255);
 
         //Draw screen
         SDL_RenderPresent(_renderer);

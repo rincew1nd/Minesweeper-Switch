@@ -24,13 +24,9 @@ Board::Board(int w, int h, Resources* resources)
 
 void Board::GenerateBoard()
 {
-    printf("Clear near cell count\n");
-    for (int i = 0; i < Globals::BoardWidth * Globals::BoardHeight; i++)
-        _cells[i]->Reset();
-
     printf("Random mines\n");
     srand(time(0));
-    for (int mineCount = 0; mineCount <= Globals::BoardHeight * Globals::BoardWidth * 0.3; mineCount++)
+    for (int mineCount = 0; mineCount <= Globals::BoardHeight * Globals::BoardWidth * Globals::Dificulty; mineCount++)
     {
         while(true)
         {
@@ -93,8 +89,11 @@ void Board::OpenAll()
 
 void Board::Restart()
 {
+    printf("Clear near cell count\n");
     for (int i = 0; i < Globals::BoardWidth * Globals::BoardHeight; i++)
-        _cells[i]->SetState(Closed);
+        _cells[i]->Reset();
+
+    GenerateBoard();
 }
 
 void Board::Draw(SDL_Renderer* renderer)
@@ -113,23 +112,64 @@ void Board::HandleClick(touchPosition* point)
     y = y / Globals::CellSize;
 
     if (IsOnBoard(x, y))
-        GetCell(x, y)->SetState(Globals::IsFlag ? Flagged : Opened);
+        if (!GetCell(x, y)->SetState(Globals::IsFlag ? Flagged : Opened))
+            Restart();
 
     for (int i = 0; i < _buttons.size(); i++)
         if (point->px >= _buttons[i]->GetRect()->x && point->px <= _buttons[i]->GetRect()->x + _buttons[i]->GetRect()->w &&
             point->py >= _buttons[i]->GetRect()->y && point->py <= _buttons[i]->GetRect()->y + _buttons[i]->GetRect()->h &&
             _buttons[i]->IsVisible())
             if (_buttons[i]->Name == "restart")
-                GenerateBoard();
-            else if (_buttons[i]->Name == "restart")
+            {
+                Restart();
+                break;
+            }
+            else if (_buttons[i]->Name == "flagOnButton")
+            {
                 Globals::IsFlag = true;
-            else if (_buttons[i]->Name == "restart")
+                _buttons[1]->SetVisible(false);
+                _buttons[2]->SetVisible(true);
+                break;
+            }
+            else if (_buttons[i]->Name == "flagOffButton")
+            {
                 Globals::IsFlag = false;
+                _buttons[2]->SetVisible(false);
+                _buttons[1]->SetVisible(true);
+                break;
+            }
+            else if (_buttons[i]->Name == "hardButton")
+            {
+                printf("hard\n");
+                Globals::Dificulty = 0.2f;
+                _buttons[i]->SetVisible(false);
+                _buttons[i+1]->SetVisible(true);
+                Restart();
+                break;
+            }
+            else if (_buttons[i]->Name == "mediumButton")
+            {
+                printf("medium\n");
+                Globals::Dificulty = 0.1f;
+                _buttons[i]->SetVisible(false);
+                _buttons[i+1]->SetVisible(true);
+                Restart();
+                break;
+            }
+            else if (_buttons[i]->Name == "easyButton")
+            {
+                printf("easy\n");
+                Globals::Dificulty = 0.3f;
+                _buttons[i]->SetVisible(false);
+                _buttons[i-2]->SetVisible(true);
+                Restart();
+                break;
+            }
 }
 
 void Board::InitButtons()
 {
-    Button* button = new Button(580, 665, 50, 50, "restart");
+    Button* button = new Button(580, 665, 50, 50, "restartButton");
     button->SetTexture(_resources->GetTexture(button->Name));
     _buttons.push_back(button);
 
@@ -138,6 +178,21 @@ void Board::InitButtons()
     _buttons.push_back(button);
 
     button = new Button(650, 665, 50, 50, "flagOffButton");
+    button->SetTexture(_resources->GetTexture(button->Name));
+    button->SetVisible(false);
+    _buttons.push_back(button);
+
+    button = new Button(300, 665, 100, 50, "hardButton");
+    button->SetTexture(_resources->GetTexture(button->Name));
+    button->SetVisible(true);
+    _buttons.push_back(button);
+    
+    button = new Button(300, 665, 100, 50, "mediumButton");
+    button->SetTexture(_resources->GetTexture(button->Name));
+    button->SetVisible(false);
+    _buttons.push_back(button);
+    
+    button = new Button(300, 665, 100, 50, "easyButton");
     button->SetTexture(_resources->GetTexture(button->Name));
     button->SetVisible(false);
     _buttons.push_back(button);

@@ -15,6 +15,8 @@ class Globals
         static int BoardHeight;
 
         static bool IsFlag;
+
+        static float Dificulty;
     private:
         Globals() {}
 };

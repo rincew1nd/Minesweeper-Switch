@@ -6,6 +6,7 @@ class Input
         int Scan();
         touchPosition* GetPointPosition(int);
     private:
-        touchPosition touchPoints[10];
-        int touchCount;
+        touchPosition _touchPoints[10];
+        int _touchCount;
+        bool _released;
 };

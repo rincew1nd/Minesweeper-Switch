@@ -1,20 +1,32 @@
 #include "Input.hpp"
+#include <switch.h>
+#include <cstdio>
 
 int Input::Scan()
 {
     hidScanInput();
-    touchCount = hidTouchCount();
 
-    for (int i = 0; i < touchCount; i++)
-        hidTouchRead(&touchPoints[i], i);
+    _touchCount = hidTouchCount();
 
-    return touchCount;
+    //Prevent multiple clicks from one touch press
+    if (_touchCount == 0)
+        _released = true;
+    else 
+        if (!_released)
+            _touchCount = 0;
+        else
+            _released = false;
+
+    for (int i = 0; i < _touchCount; i++)
+        hidTouchRead(&_touchPoints[i], i);
+
+    return _touchCount;
 }
 
 touchPosition* Input::GetPointPosition(int i)
 {
-    if (i < touchCount)
-        return &touchPoints[i];
+    if (i < _touchCount)
+        return &_touchPoints[i];
     else
         return NULL;
 }

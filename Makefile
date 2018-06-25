@@ -32,7 +32,7 @@ include $(DEVKITPRO)/libnx/switch_rules
 #---------------------------------------------------------------------------------
 APP_TITLE	:=	Minesweeper
 APP_AUTHOR	:=	Rincew1nd
-APP_VERSION	:=	1.0.1
+APP_VERSION	:=	1.0.3
 ICON		:=	icon.jpg
 TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
@@ -52,12 +52,12 @@ CFLAGS	:=	-g -Wall -O2 -ffunction-sections \
 
 CFLAGS	+=	$(INCLUDE) -D__SWITCH__
 
-CXXFLAGS	:= $(CFLAGS) -fno-rtti -fno-exceptions -fpermissive -std=gnu++11
+CXXFLAGS	:= $(CFLAGS) -fno-rtti -fno-exceptions -std=gnu++11
 
 ASFLAGS	:=	-g $(ARCH)
 LDFLAGS	=	-specs=$(DEVKITPRO)/libnx/switch.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map)
 
-LIBS	:=	-lSDL2_image -lSDL2_mixer -lSDL2 -lnx -lm
+LIBS	:=	-lSDL2_image -lSDL2_mixer -lSDL2 -lnx
 
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
