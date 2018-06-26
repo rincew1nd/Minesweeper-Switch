@@ -52,14 +52,12 @@ void Minesweeper::Start()
 {
     while (appletMainLoop())
     {
+        //Handle touchscreen
         if (_input->Scan())
-        {
             _board->HandleClick(_input->GetPointPosition(0));
-            hidScanInput();
-            u64 kDown = hidKeysDown(CONTROLLER_P1_AUTO);
-            if (kDown) printf("test123\n");
-            if (kDown & KEY_PLUS) break;
-        }
+
+        //Handle joy-con button press
+        if (hidKeysDown(CONTROLLER_P1_AUTO) & KEY_PLUS) break;
 
         //Clear screen
         SDL_RenderClear(_renderer);
@@ -81,9 +79,9 @@ void Minesweeper::Start()
 
 void Minesweeper::DeinitSDL()
 {
-    printf("Destroy window");
+    printf("Destroy window\n");
     SDL_DestroyWindow(_window);
 
-    printf("Quit SDL subsystems");
+    printf("Quit SDL subsystems\n");
     SDL_Quit();
 }

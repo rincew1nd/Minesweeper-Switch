@@ -12,6 +12,6 @@ int main(int argc, char *argv[])
     game->Start();
 
     printf("Minesweeper end!\n");
-    
+    socketExit();
     return 0;
 }

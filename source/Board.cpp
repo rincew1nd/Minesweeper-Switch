@@ -119,21 +119,21 @@ void Board::HandleClick(touchPosition* point)
         if (point->px >= _buttons[i]->GetRect()->x && point->px <= _buttons[i]->GetRect()->x + _buttons[i]->GetRect()->w &&
             point->py >= _buttons[i]->GetRect()->y && point->py <= _buttons[i]->GetRect()->y + _buttons[i]->GetRect()->h &&
             _buttons[i]->IsVisible())
-            if (_buttons[i]->Name == "restart")
+            if (_buttons[i]->Name == "restartButton")
             {
                 Restart();
                 break;
             }
             else if (_buttons[i]->Name == "flagOnButton")
             {
-                Globals::IsFlag = true;
+                Globals::IsFlag = false;
                 _buttons[1]->SetVisible(false);
                 _buttons[2]->SetVisible(true);
                 break;
             }
             else if (_buttons[i]->Name == "flagOffButton")
             {
-                Globals::IsFlag = false;
+                Globals::IsFlag = true;
                 _buttons[2]->SetVisible(false);
                 _buttons[1]->SetVisible(true);
                 break;
@@ -175,11 +175,11 @@ void Board::InitButtons()
 
     button = new Button(650, 665, 50, 50, "flagOnButton");
     button->SetTexture(_resources->GetTexture(button->Name));
+    button->SetVisible(false);
     _buttons.push_back(button);
 
     button = new Button(650, 665, 50, 50, "flagOffButton");
     button->SetTexture(_resources->GetTexture(button->Name));
-    button->SetVisible(false);
     _buttons.push_back(button);
 
     button = new Button(300, 665, 100, 50, "hardButton");
