@@ -1,12 +1,19 @@
 #pragma once
 
 #include <switch.h>
-#include <string>
-#include "DrawableObject.hpp"
 
-class Button : public DrawableObject
+#include <string>
+#include <functional>
+
+#include "Engine/SpriteObject.hpp"
+#include "Engine/TouchableObject.hpp"
+
+class Button : public SpriteObject, TouchableObject
 {
     public:
-        Button(int, int, int, int, std::string);
-        std::string Name;
+        Button(int, int, int, int, std::string); //stub
+        Button(int, int, int, int, std::string, std::function<void()>);
+        std::string GetName() { return _name; };
+    private:
+        std::string _name;
 };

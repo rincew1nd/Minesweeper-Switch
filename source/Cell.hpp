@@ -3,10 +3,10 @@
 #include <vector>
 
 #include "Resources.hpp"
-#include "DrawableObject.hpp"
+#include "Engine/SpriteObject.hpp"
 #include "Defaults.hpp"
 
-class Cell : public DrawableObject
+class Cell : public SpriteObject
 {
     public:
         Cell(int, int, int, int, Resources*);

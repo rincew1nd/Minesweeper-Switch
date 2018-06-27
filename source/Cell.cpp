@@ -1,8 +1,7 @@
 #include "Cell.hpp"
-#include "Defaults.hpp"
 
 Cell::Cell(int posX, int posY, int dX, int dY, Resources* res)
-    : DrawableObject(posX * Globals::CellSize + dX, posY * Globals::CellSize + dY, Globals::CellSize, Globals::CellSize)
+    : GraphicalObject(posX * Globals::CellSize + dX, posY * Globals::CellSize + dY, Globals::CellSize, Globals::CellSize)
 {
     posi = posX;
     posj = posY;
