@@ -1,5 +1,8 @@
 #include "TouchableObject.hpp"
 
+TouchableObject::TouchableObject(int x, int y, int w, int h)
+    : GraphicalObject(x, y, w, h) {}
+
 void TouchableObject::SetAction(std::function<void()> func)
 {
     _onPress = func;

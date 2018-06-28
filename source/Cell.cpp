@@ -1,7 +1,8 @@
 #include "Cell.hpp"
 
 Cell::Cell(int posX, int posY, int dX, int dY, Resources* res)
-    : GraphicalObject(posX * Globals::CellSize + dX, posY * Globals::CellSize + dY, Globals::CellSize, Globals::CellSize)
+    : GraphicalObject(posX * Globals::CellSize + dX, posY * Globals::CellSize + dY, Globals::CellSize, Globals::CellSize),
+      SpriteObject(posX * Globals::CellSize + dX, posY * Globals::CellSize + dY, Globals::CellSize, Globals::CellSize)
 {
     posi = posX;
     posj = posY;

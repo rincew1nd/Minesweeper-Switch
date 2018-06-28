@@ -5,7 +5,6 @@
 class SpriteObject : public virtual GraphicalObject
 {
     public:
-        SpriteObject();
         SpriteObject(int, int, int, int);
         void Draw(SDL_Renderer*);
         void SetTexture(SDL_Texture*);
