@@ -8,10 +8,8 @@ Minesweeper::Minesweeper()
 
 void Minesweeper::InitGame()
 {
-    printf("Init input\n");
     _input = new Input();
 
-    printf("Init ROMFS\n");
     Result rc = romfsInit();
     if (R_FAILED(rc))
         printf("ERROR: romfsInit: %08X\n", rc);
@@ -21,13 +19,11 @@ void Minesweeper::InitGame()
         _resources->LoadROMFS(_renderer);
     }
 
-    printf("Init board\n");
     _board = new Board(1280, 720, _resources);
 }
 
 void Minesweeper::InitSDL()
 {
-    printf("Initialize SDL");
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK) < 0)
     {
         printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
@@ -79,9 +75,7 @@ void Minesweeper::Start()
 
 void Minesweeper::DeinitSDL()
 {
-    printf("Destroy window\n");
     SDL_DestroyWindow(_window);
 
-    printf("Quit SDL subsystems\n");
     SDL_Quit();
 }

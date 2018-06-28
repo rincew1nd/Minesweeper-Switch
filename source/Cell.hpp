@@ -4,27 +4,23 @@
 
 #include "Resources.hpp"
 #include "Engine/SpriteObject.hpp"
+#include "Engine/TouchableObject.hpp"
 #include "Defaults.hpp"
 
-class Cell : public SpriteObject
+class Cell : public SpriteObject, public TouchableObject
 {
     public:
-        Cell(int, int, int, int, Resources*);
+        Cell(int, int, int, int);
         void AddNearCell(Cell*);
         CellState GetState();
         bool SetState(CellState);
-        void SetMineTexture(SDL_Texture*);
-        int NearMinesCount;
         void Reset();
 
+        int NearMinesCount;
         int posi;
         int posj;
     private:
         Cell();
         CellState _state;
         std::vector<Cell*> _nearCells;
-
-        SDL_Texture* _closedTexture;
-        SDL_Texture* _openedTexture;
-        SDL_Texture* _flaggedTexture;
 };

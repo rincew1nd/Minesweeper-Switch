@@ -7,6 +7,11 @@ GraphicalObject::GraphicalObject(int x, int y, int w, int h)
     _rect->y = y;
     _rect->w = w;
     _rect->h = h;
+    _color = new SDL_Color();
+    _color->r = 0;
+    _color->g = 0;
+    _color->b = 0;
+    _color->a = 255;
     _isVisible = true;
 }
 

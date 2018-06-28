@@ -8,7 +8,7 @@ class TouchableObject : public virtual GraphicalObject
     public:
         TouchableObject(int, int, int, int);
         void SetAction(std::function<void()>);
-        void Press() { _onPress(); };
+        void Press() { if (_onPress != nullptr) _onPress(); };
         bool Hovered(touchPosition*);
     
     private:
