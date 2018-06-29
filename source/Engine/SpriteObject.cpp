@@ -6,7 +6,7 @@ void SpriteObject::Draw(SDL_Renderer *renderer)
 {
     if (_isVisible)
     {
-        if (_texture != NULL)
+        if (_texture != nullptr)
             SDL_RenderCopy(renderer, _texture, NULL, _rect);
         else
         {

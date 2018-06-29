@@ -1,14 +1,10 @@
 #pragma once
 
-#include <switch.h>
-
 #include <string>
-#include <functional>
 
-#include "Engine/SpriteObject.hpp"
-#include "Engine/TouchableObject.hpp"
+#include "SpriteObject.hpp"
 
-class Button : public SpriteObject, public TouchableObject
+class Button : public SpriteObject
 {
     public:
         Button(int, int, int, int, std::string);

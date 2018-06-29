@@ -17,3 +17,10 @@ Basic implimentation of Minesweeper in C++ and SDL2 for Nintendo Switch.
 * Option screen with basic parametrization
 * Touchscreen gestures for zooming and moving field
 * Timer and scoreboard
+
+## Roadmap for next release:
+
+* Learning how SDL TTF works (000%).
+* Working menu with basic customization (040%).
+* Timer and scoreboard (000%).
+* Game Over screen [![Restart game](https://i.imgur.com/g6cYnyw.png)] (000%)

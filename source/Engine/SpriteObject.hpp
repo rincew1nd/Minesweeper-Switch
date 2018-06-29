@@ -1,9 +1,8 @@
 #pragma once
 
-#include <vector>
 #include "GraphicalObject.hpp"
 
-class SpriteObject : public virtual GraphicalObject
+class SpriteObject : public GraphicalObject
 {
     public:
         SpriteObject(int, int, int, int);
@@ -14,6 +13,6 @@ class SpriteObject : public virtual GraphicalObject
         bool AddTexture(SDL_Texture*, int);
 
     protected:
-        SDL_Texture* _texture;
+        SDL_Texture* _texture = nullptr;;
         std::vector<SDL_Texture*> _textures;
 };

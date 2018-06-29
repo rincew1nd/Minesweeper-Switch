@@ -1,4 +1,4 @@
-#include "Board.hpp"
+#include "BoardScene.hpp"
 #include <ctime>
 #include <string>
 
@@ -9,6 +9,8 @@ Board::Board(int w, int h, Resources* resources)
     GridTop = 10;
 
     _resources = resources;
+
+    _widgets.push_back((Widget*)new SettingsWidget(540, 200, 200, 200, resources));
 
     InitButtons();
 
@@ -103,17 +105,31 @@ void Board::Draw(SDL_Renderer* renderer)
         _cells[i]->Draw(renderer);
     for (int i = 0; i < _buttons.size(); i++)
         _buttons[i]->Draw(renderer);
+    for (int i = 0; i < _widgets.size(); i++)
+        _widgets[i]->Draw(renderer);
 }
 
 void Board::HandleClick(touchPosition* point)
 {
-    for (int i = 0; i < _cells.size(); i++)
-        if (_cells[i]->TouchableObject::Hovered(point) && _cells[i]->IsVisible())
-            _cells[i]->Press();
+    int widgetVisible = false;
 
-    for (int i = 0; i < _buttons.size(); i++)
-        if (_buttons[i]->TouchableObject::Hovered(point) && _buttons[i]->IsVisible())
-            _buttons[i]->Press();
+    for (int i = 0; i < _widgets.size(); i++)
+        if (_widgets[i]->IsVisible)
+        {
+            _widgets[i]->HandleTouch(point);
+            widgetVisible = true;
+        }
+
+    if (!widgetVisible)
+    {
+        for (int i = 0; i < _cells.size(); i++)
+            if (_cells[i]->Hovered(point) && _cells[i]->IsVisible())
+                _cells[i]->Press();
+
+        for (int i = 0; i < _buttons.size(); i++)
+            if (_buttons[i]->Hovered(point) && _buttons[i]->IsVisible())
+                _buttons[i]->Press();
+    }
 }
 
 void Board::InitButtons()
@@ -121,6 +137,12 @@ void Board::InitButtons()
     Button* button = new Button(580, 665, 50, 50, "restartButton");
     button->SetTexture(_resources->GetTexture(button->GetName()));
     button->SetAction([this](){ Restart(); });
+    _buttons.push_back(button);
+
+    button = new Button(0, 0, 50, 50, "restartButton");
+    button->SetTexture(_resources->GetTexture(button->GetName()));
+    Widget* settings = _widgets[0];
+    button->SetAction([settings] { settings->IsVisible = true; });
     _buttons.push_back(button);
 
     button = new Button(650, 665, 50, 50, "flagButton");

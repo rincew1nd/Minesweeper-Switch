@@ -78,13 +78,22 @@ export TOPDIR	:=	$(CURDIR)
 
 export VPATH	:=	$(foreach dir,$(SOURCES),$(CURDIR)/$(dir)) \
 					$(foreach dir,$(SOURCES)/Engine,$(CURDIR)/$(dir)) \
+					$(foreach dir,$(SOURCES)/GameObjects,$(CURDIR)/$(dir)) \
+					$(foreach dir,$(SOURCES)/Scenes,$(CURDIR)/$(dir)) \
+					$(foreach dir,$(SOURCES)/Widgets,$(CURDIR)/$(dir)) \
+					$(foreach dir,$(SOURCES),$(foreach subdir,$(SOURCES)/$(dir),$(CURDIR)/$(dir)/$(subdir))) \
 					$(foreach dir,$(DATA),$(CURDIR)/$(dir))
+
+$(info VAR is $(VPATH))
 
 export DEPSDIR	:=	$(CURDIR)/$(BUILD)
 
 CFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.c)))
 CPPFILES	:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.cpp))) \
-				$(foreach dir,$(SOURCES)/Engine,$(notdir $(wildcard $(dir)/*.cpp)))
+				$(foreach dir,$(SOURCES)/Engine,$(notdir $(wildcard $(dir)/*.cpp))) \
+				$(foreach dir,$(SOURCES)/GameObjects,$(notdir $(wildcard $(dir)/*.cpp))) \
+				$(foreach dir,$(SOURCES)/Scenes,$(notdir $(wildcard $(dir)/*.cpp))) \
+				$(foreach dir,$(SOURCES)/Widgets,$(notdir $(wildcard $(dir)/*.cpp)))
 SFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.s)))
 BINFILES	:=	$(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.*)))
 

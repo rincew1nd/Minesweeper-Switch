@@ -23,6 +23,9 @@ void Resources::LoadROMFS(SDL_Renderer* renderer)
     _textures.insert(std::make_pair("hardButton", LoadTexture(renderer, "hardButton")));
     _textures.insert(std::make_pair("mediumButton", LoadTexture(renderer, "mediumButton")));
     _textures.insert(std::make_pair("easyButton", LoadTexture(renderer, "easyButton")));
+
+    //Font
+    //_font = TTF_OpenFont("romfs:/Pixeled.ttf", 28);
 }
 
 SDL_Texture* Resources::LoadTexture(SDL_Renderer* renderer, std::string image)
@@ -31,7 +34,9 @@ SDL_Texture* Resources::LoadTexture(SDL_Renderer* renderer, std::string image)
     sprintf(imagePath, "romfs:/%s.bmp", image.c_str());
 
     SDL_Surface* surface = SDL_LoadBMP(imagePath);
-    return SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_FreeSurface(surface);
+    return texture;
 }
 
 SDL_Texture* Resources::GetTexture(CellState state, int order)
@@ -42,4 +47,9 @@ SDL_Texture* Resources::GetTexture(CellState state, int order)
 SDL_Texture *Resources::GetTexture(std::string textureName)
 {
     return _textures[textureName];
+}
+
+TTF_Font* Resources::GetFont()
+{
+    return _font;
 }

@@ -1,10 +1,11 @@
 #pragma once
+
 #include <switch.h>
 #include <SDL2/SDL.h>
 
-#include "Defaults.hpp"
-#include "Input.hpp"
-#include "Board.hpp"
+#include "Engine/Defaults.hpp"
+#include "Engine/Input.hpp"
+#include "Scenes/BoardScene.hpp"
 
 class Minesweeper
 {

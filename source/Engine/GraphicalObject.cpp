@@ -1,12 +1,7 @@
 #include "GraphicalObject.hpp"
 
-GraphicalObject::GraphicalObject(int x, int y, int w, int h)
+GraphicalObject::GraphicalObject(int x, int y, int w, int h) : GameObject(x, y, w, h)
 {
-    _rect = new SDL_Rect();
-    _rect->x = x;
-    _rect->y = y;
-    _rect->w = w;
-    _rect->h = h;
     _color = new SDL_Color();
     _color->r = 0;
     _color->g = 0;

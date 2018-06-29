@@ -1,8 +1,8 @@
 #pragma once
-#include <switch.h>
-#include <SDL2/SDL.h>
 
-class GraphicalObject
+#include "GameObject.hpp"
+
+class GraphicalObject : public GameObject
 {
     public:
         GraphicalObject(int, int, int, int);
@@ -14,7 +14,6 @@ class GraphicalObject
         bool IsVisible();
 
     protected:
-        SDL_Rect* _rect;
         SDL_Color* _color;
         bool _isVisible;
 };

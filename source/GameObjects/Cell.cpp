@@ -1,14 +1,8 @@
 #include "Cell.hpp"
 
-Cell::Cell(int posX, int posY, int dX, int dY)
-    : GraphicalObject(posX * Globals::CellSize + dX, posY * Globals::CellSize + dY, Globals::CellSize, Globals::CellSize),
-      SpriteObject(posX * Globals::CellSize + dX, posY * Globals::CellSize + dY, Globals::CellSize, Globals::CellSize),
-      TouchableObject(posX * Globals::CellSize + dX, posY * Globals::CellSize + dY, Globals::CellSize, Globals::CellSize)
+Cell::Cell(int posX, int posY, int dX, int dY) : SpriteObject(posX * Globals::CellSize + dX, posY * Globals::CellSize + dY, Globals::CellSize, Globals::CellSize)
 {
-    posi = posX;
-    posj = posY;
     NearMinesCount = 0;
-    
     _state = Closed;
     SetColor(0, 0, 0);
     SetTexture(0);
