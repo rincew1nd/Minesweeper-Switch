@@ -16,6 +16,9 @@ Feel free to report bugs and contribute!
 
 ## To-Do:
 
-* Option screen with basic parametrization
-* Touch screen gestures for zooming and moving field
+* Touchscreen gestures for zooming and moving field
 * Timer and scoreboard
+
+## Roadmap for next release:
+
+* Timer and scoreboard (000%).

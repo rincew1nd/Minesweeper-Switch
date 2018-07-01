@@ -32,7 +32,7 @@ include $(DEVKITPRO)/libnx/switch_rules
 #---------------------------------------------------------------------------------
 APP_TITLE	:=	Minesweeper
 APP_AUTHOR	:=	Rincew1nd
-APP_VERSION	:=	1.0.3
+APP_VERSION	:=	1.1.0
 ICON		:=	icon.jpg
 TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
@@ -52,12 +52,12 @@ CFLAGS	:=	-g -Wall -O2 -ffunction-sections \
 
 CFLAGS	+=	$(INCLUDE) -D__SWITCH__
 
-CXXFLAGS	:= $(CFLAGS) -fno-rtti -fno-exceptions -std=gnu++11
+CXXFLAGS	:= $(CFLAGS) -fno-rtti -fno-exceptions -std=gnu++11 -Wno-sign-compare
 
 ASFLAGS	:=	-g $(ARCH)
 LDFLAGS	=	-specs=$(DEVKITPRO)/libnx/switch.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map)
 
-LIBS	:=	-lSDL2_image -lSDL2_mixer -lSDL2 -lnx
+LIBS	:=	-lSDL2_image -lSDL2_mixer -lSDL2_ttf -lSDL2 -lfreetype -lpng -lz -lbz2 -lnx -lm
 
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
@@ -77,12 +77,23 @@ export OUTPUT	:=	$(CURDIR)/$(TARGET)
 export TOPDIR	:=	$(CURDIR)
 
 export VPATH	:=	$(foreach dir,$(SOURCES),$(CURDIR)/$(dir)) \
-			$(foreach dir,$(DATA),$(CURDIR)/$(dir))
+					$(foreach dir,$(SOURCES)/Engine,$(CURDIR)/$(dir)) \
+					$(foreach dir,$(SOURCES)/GameObjects,$(CURDIR)/$(dir)) \
+					$(foreach dir,$(SOURCES)/Scenes,$(CURDIR)/$(dir)) \
+					$(foreach dir,$(SOURCES)/Widgets,$(CURDIR)/$(dir)) \
+					$(foreach dir,$(SOURCES),$(foreach subdir,$(SOURCES)/$(dir),$(CURDIR)/$(dir)/$(subdir))) \
+					$(foreach dir,$(DATA),$(CURDIR)/$(dir))
+
+$(info VAR is $(VPATH))
 
 export DEPSDIR	:=	$(CURDIR)/$(BUILD)
 
 CFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.c)))
-CPPFILES	:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.cpp)))
+CPPFILES	:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.cpp))) \
+				$(foreach dir,$(SOURCES)/Engine,$(notdir $(wildcard $(dir)/*.cpp))) \
+				$(foreach dir,$(SOURCES)/GameObjects,$(notdir $(wildcard $(dir)/*.cpp))) \
+				$(foreach dir,$(SOURCES)/Scenes,$(notdir $(wildcard $(dir)/*.cpp))) \
+				$(foreach dir,$(SOURCES)/Widgets,$(notdir $(wildcard $(dir)/*.cpp)))
 SFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.s)))
 BINFILES	:=	$(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.*)))
 

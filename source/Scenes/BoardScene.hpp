@@ -1,19 +1,23 @@
 #pragma once
+
 #include <stdio.h>
 #include <vector>
 #include <random>
 #include <switch.h>
 #include <SDL2/SDL.h>
-#include "Cell.hpp"
 
-#include "Defaults.hpp"
-#include "Resources.hpp"
-#include "Button.hpp"
+#include "../GameObjects/Cell.hpp"
 
-class Board
+#include "../Engine/Defaults.hpp"
+#include "../Engine/Resources.hpp"
+#include "../Engine/Button.hpp"
+#include "../Widgets/SettingsWidget.hpp"
+#include "../Widgets/GameOverWidget.hpp"
+
+class BoardScene
 {
     public:
-        Board(int, int, Resources*);
+        BoardScene(int, int, Resources*);
         void InitButtons();
         Cell* GetCell(int, int);
         bool IsAllOpened();
@@ -26,9 +30,10 @@ class Board
       private:
         void GenerateBoard();
         
-        Resources *_resources;
         int GridLeft;
         int GridTop;
+        Resources *_resources;
         std::vector<Cell*> _cells;
         std::vector<Button*> _buttons;
+        std::vector<Widget*> _widgets;
 };

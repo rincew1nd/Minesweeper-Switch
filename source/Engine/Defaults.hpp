@@ -16,7 +16,7 @@ class Globals
 
         static bool IsFlag;
 
-        static float Dificulty;
+        static int Dificulty;
     private:
         Globals() {}
 };
