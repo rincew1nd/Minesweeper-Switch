@@ -2,8 +2,8 @@
 
 Minesweeper::Minesweeper()
 {
-    InitSDL();
-    InitGame();
+    if (InitSDL())
+        InitGame();
 }
 
 void Minesweeper::InitGame()
@@ -19,15 +19,15 @@ void Minesweeper::InitGame()
         _resources->LoadROMFS(_renderer);
     }
 
-    _board = new Board(1280, 720, _resources);
+    _board = new BoardScene(1280, 720, _resources);
 }
 
-void Minesweeper::InitSDL()
+bool Minesweeper::InitSDL()
 {
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK) < 0)
     {
         printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
-        return;
+        return false;
     }
     
     atexit(SDL_Quit);
@@ -36,12 +36,21 @@ void Minesweeper::InitSDL()
     if (_window == NULL)
     {
         printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
-        return;
+        return false;
+    }
+
+    //Initialize SDL_ttf
+    if( TTF_Init() == -1 )
+    {
+        printf( "SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError() );
+        return false;
     }
 
     SDL_SetRenderDrawColor(_renderer, 208, 176, 48, 255);
     SDL_RenderClear(_renderer);
     SDL_RenderPresent(_renderer);
+
+    return true;
 }
 
 void Minesweeper::Start()
@@ -75,7 +84,11 @@ void Minesweeper::Start()
 
 void Minesweeper::DeinitSDL()
 {
+    SDL_DestroyRenderer(_renderer);
     SDL_DestroyWindow(_window);
+    _renderer = NULL;
+    _window = NULL;
 
+    TTF_Quit();
     SDL_Quit();
 }

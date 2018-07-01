@@ -12,11 +12,12 @@
 #include "../Engine/Resources.hpp"
 #include "../Engine/Button.hpp"
 #include "../Widgets/SettingsWidget.hpp"
+#include "../Widgets/GameOverWidget.hpp"
 
-class Board
+class BoardScene
 {
     public:
-        Board(int, int, Resources*);
+        BoardScene(int, int, Resources*);
         void InitButtons();
         Cell* GetCell(int, int);
         bool IsAllOpened();

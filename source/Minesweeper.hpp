@@ -2,6 +2,7 @@
 
 #include <switch.h>
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 
 #include "Engine/Defaults.hpp"
 #include "Engine/Input.hpp"
@@ -14,7 +15,7 @@ class Minesweeper
         void Start();
 
     private:
-        void InitSDL();
+        bool InitSDL();
         void InitGame();
         void DeinitSDL();
         
@@ -22,6 +23,6 @@ class Minesweeper
         SDL_Renderer *_renderer;
 
         Input* _input;
-        Board* _board;
+        BoardScene* _board;
         Resources* _resources;
 };

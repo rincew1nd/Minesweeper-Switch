@@ -50,6 +50,8 @@ void Widget::Draw(SDL_Renderer* renderer)
         }
         for(int i = 0; i < _buttons.size(); i++)
             _buttons[i]->Draw(renderer);
+        for(int i = 0; i < _textes.size(); i++)
+            _textes[i]->Draw(renderer);
     }
 }
 

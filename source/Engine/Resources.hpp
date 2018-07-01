@@ -19,6 +19,7 @@ class Resources
         SDL_Texture* GetTexture(CellState, int);
         SDL_Texture* GetTexture(std::string);
         TTF_Font* GetFont();
+        ~Resources();
 
       private:
         TTF_Font* _font;
