@@ -32,7 +32,7 @@ include $(DEVKITPRO)/libnx/switch_rules
 #---------------------------------------------------------------------------------
 APP_TITLE	:=	Minesweeper
 APP_AUTHOR	:=	Rincew1nd
-APP_VERSION	:=	1.0.3
+APP_VERSION	:=	1.1.0
 ICON		:=	icon.jpg
 TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
