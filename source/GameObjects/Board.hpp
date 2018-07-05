@@ -10,30 +10,27 @@
 
 #include "../Engine/Defaults.hpp"
 #include "../Engine/Resources.hpp"
-#include "../Engine/Button.hpp"
-#include "../Widgets/SettingsWidget.hpp"
-#include "../Widgets/GameOverWidget.hpp"
 
-class BoardScene
+class Board
 {
     public:
-        BoardScene(int, int, Resources*);
-        void InitButtons();
-        Cell* GetCell(int, int);
+        Board(int, int, Resources*);
         bool IsAllOpened();
         bool IsOnBoard(int, int);
         void OpenAll();
         void Restart();
         void Draw(SDL_Renderer*);
         void HandleClick(touchPosition*);
+        void Move(int, int);
+
+        bool NeedRestart = false;
 
       private:
         void GenerateBoard();
+        Cell* GetCell(int, int);
         
         int GridLeft;
         int GridTop;
         Resources *_resources;
         std::vector<Cell*> _cells;
-        std::vector<Button*> _buttons;
-        std::vector<Widget*> _widgets;
 };

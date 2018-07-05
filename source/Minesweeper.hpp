@@ -6,7 +6,7 @@
 
 #include "Engine/Defaults.hpp"
 #include "Engine/Input.hpp"
-#include "Scenes/BoardScene.hpp"
+#include "Scenes/GameScene.hpp"
 
 class Minesweeper
 {
@@ -23,6 +23,6 @@ class Minesweeper
         SDL_Renderer *_renderer;
 
         Input* _input;
-        BoardScene* _board;
+        GameScene* _gameScene;
         Resources* _resources;
 };

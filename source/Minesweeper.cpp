@@ -19,7 +19,7 @@ void Minesweeper::InitGame()
         _resources->LoadROMFS(_renderer);
     }
 
-    _board = new BoardScene(1280, 720, _resources);
+    _gameScene = new GameScene(_resources);
 }
 
 bool Minesweeper::InitSDL()
@@ -59,7 +59,7 @@ void Minesweeper::Start()
     {
         //Handle touchscreen
         if (_input->Scan())
-            _board->HandleClick(_input->GetPointPosition(0));
+            _gameScene->HandleClick(_input->GetPointPosition(0));
 
         //Handle joy-con button press
         if (hidKeysDown(CONTROLLER_P1_AUTO) & KEY_PLUS) break;
@@ -68,7 +68,7 @@ void Minesweeper::Start()
         SDL_RenderClear(_renderer);
 
         //Render entity to screen
-        _board->Draw(_renderer);
+        _gameScene->Draw(_renderer);
 
         SDL_SetRenderDrawColor(_renderer, 208, 176, 48, 255);
 

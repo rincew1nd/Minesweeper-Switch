@@ -2,6 +2,11 @@
 
 Cell::Cell(int posX, int posY, int dX, int dY) : SpriteObject(posX * Globals::CellSize + dX, posY * Globals::CellSize + dY, Globals::CellSize, Globals::CellSize)
 {
+    _cellX = posX;
+    _cellY = posY;
+    _lastLeft = dX;
+    _lastTop = dY;
+
     NearMinesCount = 0;
     _state = Closed;
     SetColor(0, 0, 0);
@@ -66,4 +71,16 @@ void Cell::Reset()
     _state = Closed;
     _nearCells.clear();
     SetTexture(0);
+}
+
+void Cell::Draw(int left, int top, SDL_Renderer* renderer)
+{
+    if (left != _lastLeft || top != _lastTop)
+    {
+        _rect->x = left + _cellX * Globals::CellSize;
+        _rect->y = top + _cellY * Globals::CellSize;
+        _rect->w = Globals::CellSize;
+        _rect->h = Globals::CellSize;
+    }
+    SpriteObject::Draw(renderer);
 }
