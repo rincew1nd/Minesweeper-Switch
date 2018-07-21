@@ -1,3 +1,4 @@
+#include "../Engine/Input.hpp"
 #include "../GameObjects/Board.hpp"
 
 #include "../Engine/Button.hpp"
@@ -10,7 +11,7 @@ class GameScene
         GameScene(Resources*);
         void InitButtons();
         void Draw(SDL_Renderer*);
-        void HandleClick(touchPosition*);
+        void HandleClick(TouchInfo*);
         Board* GetBoard() { return _board; };
 
     private:

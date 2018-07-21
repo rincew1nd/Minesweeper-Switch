@@ -102,7 +102,7 @@ void Board::Draw(SDL_Renderer* renderer)
         _cells[i]->Draw(GridLeft, GridTop, renderer);
 }
 
-void Board::HandleClick(touchPosition* point)
+void Board::HandleClick(TouchInfo* point)
 {
     for (int i = 0; i < _cells.size(); i++)
         if (_cells[i]->Hovered(point) && _cells[i]->IsVisible())

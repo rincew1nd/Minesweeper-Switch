@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Input.hpp"
 #include <switch.h>
 #include "SDL2/SDL.h"
 #include <vector>
@@ -11,7 +12,7 @@ class GameObject
         GameObject(int, int, int, int);
         void SetAction(std::function<void()>);
         void Press() { if (_onPress != nullptr) _onPress(); };
-        bool Hovered(touchPosition*);
+        bool Hovered(TouchInfo*);
         void Move(int, int);
         virtual ~GameObject() {};
 

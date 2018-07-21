@@ -10,6 +10,7 @@
 
 #include "../Engine/Defaults.hpp"
 #include "../Engine/Resources.hpp"
+#include "../Engine/Input.hpp"
 
 class Board
 {
@@ -20,7 +21,7 @@ class Board
         void OpenAll();
         void Restart();
         void Draw(SDL_Renderer*);
-        void HandleClick(touchPosition*);
+        void HandleClick(TouchInfo*);
         void Move(int, int);
 
         bool NeedRestart = false;

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Input.hpp"
 #include "Button.hpp"
 #include "TextObject.hpp"
 #include <SDL2/SDL_ttf.h>
@@ -8,7 +9,7 @@ class Widget
 {
     public:
         Widget(int, int, int, int);
-        void HandleTouch(touchPosition*);
+        void HandleTouch(TouchInfo*);
         void HandleJoystick() {};
         
         bool IsVisible;
