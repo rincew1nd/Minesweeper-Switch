@@ -83,3 +83,19 @@ void Cell::Draw(int left, int top, SDL_Renderer* renderer)
     }
     SpriteObject::Draw(renderer);
 }
+
+bool Cell::OpenNearCells()
+{
+    int flagCount = 0;
+    for (int i = 0; i < _nearCells.size(); i++)
+        if (_nearCells[i]->GetState() == Flagged)
+            flagCount++;
+
+    if (flagCount == NearMinesCount)
+        for (int i = 0; i < _nearCells.size(); i++)
+            if (_nearCells[i]->GetState() == Closed)
+                if (!_nearCells[i]->SetState(Opened))
+                    return false;
+
+    return true;
+}

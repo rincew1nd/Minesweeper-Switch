@@ -13,6 +13,7 @@ class Cell : public SpriteObject
         bool SetState(CellState);
         void Reset();
         void Draw(int, int, SDL_Renderer*);
+        bool OpenNearCells();
 
         int NearMinesCount;
     private:

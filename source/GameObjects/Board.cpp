@@ -24,7 +24,7 @@ void Board::GenerateBoard()
             cell->AddTexture(_resources->GetTexture(Flagged, 0));
             cell->SetTexture(0);
             cell->SetAction([this, cell]{
-                if (!cell->SetState(Globals::IsFlag ? Flagged : Opened))
+                if ((cell->GetState() == Opened && !cell->OpenNearCells()) || !cell->SetState(Globals::IsFlag ? Flagged : Opened))
                 {
                     NeedRestart = true;
                     GameOver = true;
