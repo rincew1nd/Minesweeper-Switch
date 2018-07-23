@@ -15,8 +15,8 @@
 class Board
 {
     public:
-        Board(int, int, Resources*);
-        bool IsAllOpened();
+        Board(Resources*);
+        bool CheckState();
         bool IsOnBoard(int, int);
         void OpenAll();
         void Restart();
@@ -25,13 +25,21 @@ class Board
         void Move(int, int);
 
         bool NeedRestart = false;
+        bool NeedHardRestart = false;
+        bool GameOver = false;
+        
+        int MineCount = 0;
+        int FlagCount = 0;
 
       private:
         void GenerateBoard();
+        void GenerateMinefield();
         Cell* GetCell(int, int);
         
-        int GridLeft;
-        int GridTop;
+        int _gridLeft;
+        int _gridTop;
+        int _boardHeight;
+        int _boardWidth;
         Resources *_resources;
         std::vector<Cell*> _cells;
 };

@@ -17,6 +17,9 @@ class GameScene
     private:
         Board* _board;
         Resources* _resources;
+        TTF_Font* _font = nullptr;
+
         std::vector<Button*> _buttons;
         std::vector<Widget*> _widgets;
+        std::vector<TextObject*> _textes;
 };

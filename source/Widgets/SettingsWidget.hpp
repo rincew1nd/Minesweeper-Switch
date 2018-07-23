@@ -6,5 +6,5 @@
 class SettingsWidget : public Widget
 {
     public:
-        SettingsWidget(int, int, int, int, Resources*);
+        SettingsWidget(int, int, int, int, Resources*, bool*);
 };

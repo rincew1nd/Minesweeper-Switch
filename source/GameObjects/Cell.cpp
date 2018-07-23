@@ -69,7 +69,6 @@ void Cell::Reset()
 {
     NearMinesCount = 0;
     _state = Closed;
-    _nearCells.clear();
     SetTexture(0);
 }
 

@@ -61,10 +61,7 @@ void Minesweeper::Start()
         _input->Scan();
             TouchInfo* ti = _input->GetTouchInfo();
             if (ti->Type != None)
-            {
                 _gameScene->HandleClick(ti);
-                printf("%d - %d:%d\n", ti->Type, ti->ValueOne, ti->ValueTwo);
-            }
 
         //Handle joy-con button press
         if (hidKeysDown(CONTROLLER_P1_AUTO) & KEY_PLUS) break;
