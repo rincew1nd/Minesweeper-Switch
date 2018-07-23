@@ -19,7 +19,3 @@ Feel free to report bugs and contribute!
 ## To-Do:
 
 * Timer and scoreboard
-
-## Roadmap for next release:
-
-* Timer and scoreboard (000%).
