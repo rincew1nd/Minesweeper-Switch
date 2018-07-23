@@ -19,3 +19,4 @@ Feel free to report bugs and contribute!
 ## To-Do:
 
 * Timer and scoreboard
+* Custom skins (HYPE!)
