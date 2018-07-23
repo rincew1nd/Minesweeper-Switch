@@ -58,8 +58,10 @@ void Minesweeper::Start()
     while (appletMainLoop())
     {
         //Handle touchscreen
-        if (_input->Scan())
-            _gameScene->HandleClick(_input->GetPointPosition(0));
+        _input->Scan();
+            TouchInfo* ti = _input->GetTouchInfo();
+            if (ti->Type != None)
+                _gameScene->HandleClick(ti);
 
         //Handle joy-con button press
         if (hidKeysDown(CONTROLLER_P1_AUTO) & KEY_PLUS) break;
@@ -76,7 +78,7 @@ void Minesweeper::Start()
         SDL_RenderPresent(_renderer);
 
         //Pause
-        SDL_Delay(16);
+        SDL_Delay(6);
     }
 
     DeinitSDL();

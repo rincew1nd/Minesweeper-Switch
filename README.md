@@ -13,12 +13,10 @@ Feel free to report bugs and contribute!
         * ![Reset field](https://raw.githubusercontent.com/rincew1nd/Minesweeper-Switch/master/romfs/easyButton.bmp) 0.1% of cells contains mine
         * ![Reset field](https://raw.githubusercontent.com/rincew1nd/Minesweeper-Switch/master/romfs/mediumButton.bmp) 0.2% of cells contains mine
         * ![Reset field](https://raw.githubusercontent.com/rincew1nd/Minesweeper-Switch/master/romfs/hardButton.bmp) 0.3% of cells contains mine
+* Pinch to resize board
+* Drag to move board
 
 ## To-Do:
 
-* Touchscreen gestures for zooming and moving field
 * Timer and scoreboard
-
-## Roadmap for next release:
-
-* Timer and scoreboard (000%).
+* Custom skins (HYPE!)

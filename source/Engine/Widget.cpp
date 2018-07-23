@@ -55,9 +55,9 @@ void Widget::Draw(SDL_Renderer* renderer)
     }
 }
 
-void Widget::HandleTouch(touchPosition* pos)
+void Widget::HandleTouch(TouchInfo* ti)
 {
     for(int i = 0; i < _buttons.size(); i++)
-        if (_buttons[i]->Hovered(pos) && _buttons[i]->IsVisible())
+        if (_buttons[i]->Hovered(ti) && _buttons[i]->IsVisible())
             _buttons[i]->Press();
 }

@@ -20,8 +20,8 @@ void GameObject::SetAction(std::function<void()> func)
     _onPress = func;
 }
 
-bool GameObject::Hovered(touchPosition* pos)
+bool GameObject::Hovered(TouchInfo* ti)
 {
-    return pos->px >= _rect->x && pos->px <= _rect->x + _rect->w &&
-           pos->py >= _rect->y && pos->py <= _rect->y + _rect->h;
+    return ti->ValueOne >= _rect->x && ti->ValueOne <= _rect->x + _rect->w &&
+           ti->ValueTwo >= _rect->y && ti->ValueTwo <= _rect->y + _rect->h;
 }
